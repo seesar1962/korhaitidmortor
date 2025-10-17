@@ -236,7 +236,7 @@
         const verbal = parseFloat(document.getElementById("satVerbal").value) || 0;
         
         if (math < 200 || math > 800 || verbal < 200 || verbal > 800) {
-           document.getElementById("result").innerHTML = "❌ คะแนน SAT ต้องเป็นตัวเลขระหว่าง <strong>0 - 800</strong>";
+           document.getElementById("result").innerHTML = "❌ คะแนน SAT ต้องเป็นตัวเลขระหว่าง <strong>200 - 800</strong>";
            return;
         }
 
@@ -270,5 +270,6 @@
   </script>
 </body>
 </html>
+
 
 
