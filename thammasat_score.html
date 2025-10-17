@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบคำนวณคะแนนยื่น บัญชี–บริหาร มธ. (Non official)</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <style>
+    body {
+      font-family: "Prompt", sans-serif; 
+      /* เปลี่ยนไปใช้ลิงก์รูปภาพที่คุณต้องการ */
+      background-image: url('https://scontent.fbkk29-8.fna.fbcdn.net/v/t1.6435-9/36978771_10155538422836551_7822260723152584704_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ZsmKLBrZDBcQ7kNvwENx6x8&_nc_oc=AdkLV3V-DnQoRVl180Gh-VcuOO9ZG9Y1-EwY2u60Za2x6APHgjbZAVPKrtWOBQLYxeQ&_nc_zt=23&_nc_ht=scontent.fbkk29-8.fna&_nc_gid=hGmhrdQsofV4EeBCo4_X-Q&oh=00_AffmeleTjcQP9HJ2w6eyqN9a5CRWLoPXND5peo4eFoSqUA&oe=6919D235');
+      background-size: cover; /* ปรับขนาดภาพให้คลุมพื้นที่ */
+      background-attachment: fixed; /* ทำให้ภาพนิ่งเมื่อเลื่อนหน้าจอ */
+      background-position: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: auto;
+      /* ทำพื้นหลังเป็นสีขาวโปร่งแสงเล็กน้อย เพื่อให้อ่านข้อความได้ชัดเจนบนพื้นหลังรูปภาพ */
+      background: rgba(255, 255, 255, 0.95); 
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    .promotion-box {
+      background: #f0f8ff;
+      border: 1px solid #cceeff;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #004d99;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    
+    /* สไตล์สำหรับส่วนโซเชียลมีเดีย */
+    .social-links {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px dashed #ccc;
+    }
+    .social-links p {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: #555;
+    }
+    .social-links a {
+      font-size: 28px;
+      margin: 0 8px;
+      color: #333;
+      transition: color 0.3s;
+    }
+    .social-links a.instagram:hover { color: #E1306C; }
+    .social-links a.facebook:hover { color: #1877F2; }
+    .social-links a.twitter:hover { color: #1DA1F2; }
+    .social-links a.line:hover { color: #00C300; }
+    .social-links a.seesar:hover { color: #2563eb; }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .non-official-warning {
+      text-align: center;
+      color: #cc3300;
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+      color: #111;
+      font-weight: bold;
+      border: 1px dashed #2563eb;
+      border-radius: 8px;
+      background: #eff6ff;
+    }
+    .hidden {
+      display: none;
+    }
+    .input-note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 2px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="promotion-box">
+        🎓 <strong>คณะพาณิชยศาสตร์และการบัญชี (ACCY) มธ.</strong> 💼<br>
+        จากสำเภาไม้… สู่“เรือใบ” ที่ขับเคลื่อนอนาคต<br>
+        มาเป็นลูกแม่โดมด้วยกันนะคะ
+    </div>
+    <h2>ระบบคำนวณคะแนนยื่น<br>บัญชี–บริหาร มธ.</h2>
+    
+    <p class="non-official-warning">
+      (⚠️ เครื่องมือคำนวณคะแนน <strong>ไม่เป็นทางการ</strong>)
+    </p>
+
+    <label for="name">ชื่อผู้กรอก</label>
+    <input type="text" id="name" placeholder="กรอกชื่อเล่นหรือชื่ออะไรก็ได้">
+    
+    <label for="program">เลือกหลักสูตร</label>
+    <select id="program">
+      <option value="">-- เลือกหลักสูตร --</option>
+      <option value="บัญชี 4 ปี">บัญชี 4 ปี</option>
+      <option value="บัญชี 5 ปี">บัญชี 5 ปี</option>
+      <option value="บริหาร 4 ปี">บริหาร 4 ปี</option>
+      <option value="บริหาร 5 ปี">บริหาร 5 ปี</option>
+    </select>
+
+    <label for="type">เลือกรูปแบบการยื่น</label>
+    <select id="type" onchange="showInputs()">
+      <option value="">-- เลือกรูปแบบ --</option>
+      <option value="sat">SAT</option>
+      <option value="forward">Forward</option>
+    </select>
+
+    <div id="sat-inputs" class="hidden">
+      <label for="satMath">Math Section</label>
+      <input type="number" id="satMath" placeholder="กรอกคะแนน Math (เต็ม 800)">
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 800</span>
+      
+      <label for="satVerbal">Verbal Section</label>
+      <input type="number" id="satVerbal" placeholder="กรอกคะแนน Verbal (เต็ม 800)">
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 800</span>
+    </div>
+
+    <div id="forward-inputs" class="hidden">
+      <label for="forward1">พาร์ตสมรรถนะด้านการวิเคราะห์เชิงปริมาณทางธุรกิจ (40%)</label>
+      <input type="number" id="forward1" placeholder="กรอกคะแนนเต็ม 300">
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 300</span>
+      
+      <label for="forward2">พาร์ตสมรรถนะด้านการวิเคราะห์เชิงคุณภาพทางธุรกิจ (30%)</label>
+      <input type="number" id="forward2" placeholder="กรอกคะแนนเต็ม 300">
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 300</span>
+      
+      <label for="forward3">พาร์ตสมรรถนะด้านการสื่อสารภาษาอังกฤษทางธุรกิจ (30%)</label>
+      <input type="number" id="forward3" placeholder="กรอกคะแนนเต็ม 300">
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 300</span>
+    </div>
+
+    <button onclick="calculate()">คำนวณคะแนนรวม</button>
+
+    <div class="result" id="result">⚠️ ผลลัพธ์จะแสดงตรงนี้</div>
+    
+    <div class="social-links">
+        <p>สามารถติดตามข่าวสารของทางคณะพาณิชยศาสตร์และการบัญชี มหาวิทยาลัยธรรมศาสตร์ได้ที่</p>
+        <div>
+            <a href="https://www.instagram.com/accy_tu/" target="_blank" class="instagram" title="Instagram คณะ"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/tbs.thammasat/" target="_blank" class="facebook" title="Facebook คณะ"><i class="fab fa-facebook-square"></i></a>
+            <a href="https://x.com/accy_tu" target="_blank" class="twitter" title="X (Twitter) คณะ"><i class="fab fa-x-twitter"></i></a>
+            <span style="margin: 0 5px; color: #aaa;">|</span>
+            <a href="https://line.me/ti/g2/5V6w3YG_U0izhU_5kte474coqxuvCqt2jEwLMg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="line" title="Line OpenChat"><i class="fab fa-line"></i></a>
+            <a href="https://x.com/seesar1962" target="_blank" class="seesar" title="เว็บมีปัญหาติดต่อได้ที่ Account นี้นะคะ"><i class="fas fa-user-circle"></i></a>
+        </div>
+    </div>
+    </div>
+
+  <script>
+    function showInputs() {
+      const type = document.getElementById("type").value;
+      document.getElementById("sat-inputs").classList.add("hidden");
+      document.getElementById("forward-inputs").classList.add("hidden");
+
+      if (type === "sat") {
+        document.getElementById("sat-inputs").classList.remove("hidden");
+      } else if (type === "forward") {
+        document.getElementById("forward-inputs").classList.remove("hidden");
+      }
+    }
+
+    function calculate() {
+      const name = document.getElementById("name").value.trim();
+      const program = document.getElementById("program").value;
+      const type = document.getElementById("type").value;
+      let total = 0;
+
+      if (!name || !program || !type) {
+        document.getElementById("result").innerHTML = "❌ กรุณากรอกข้อมูล <strong>ชื่อ</strong> และ <strong>เลือกหลักสูตร/รูปแบบการยื่น</strong> ให้ครบถ้วน";
+        return;
+      }
+      
+      if (type === "sat") {
+        const math = parseFloat(document.getElementById("satMath").value) || 0;
+        const verbal = parseFloat(document.getElementById("satVerbal").value) || 0;
+        
+        if (math < 0 || math > 800 || verbal < 0 || verbal > 800) {
+           document.getElementById("result").innerHTML = "❌ คะแนน SAT ต้องเป็นตัวเลขระหว่าง <strong>0 - 800</strong>";
+           return;
+        }
+
+        const math100 = (math / 800) * 100;
+        const verbal100 = (verbal / 800) * 100;
+        total = (math100 * 0.6) + (verbal100 * 0.4);
+      } else if (type === "forward") {
+        const f1 = parseFloat(document.getElementById("forward1").value) || 0;
+        const f2 = parseFloat(document.getElementById("forward2").value) || 0;
+        const f3 = parseFloat(document.getElementById("forward3").value) || 0;
+        
+        if (f1 < 0 || f1 > 300 || f2 < 0 || f2 > 300 || f3 < 0 || f3 > 300) {
+           document.getElementById("result").innerHTML = "❌ คะแนน Forward ต้องเป็นตัวเลขระหว่าง <strong>0 - 300</strong> ในแต่ละพาร์ท";
+           return;
+        }
+
+        const f1_100 = (f1 / 300) * 100;
+        const f2_100 = (f2 / 300) * 100;
+        const f3_100 = (f3 / 300) * 100;
+        total = (f1_100 * 0.4) + (f2_100 * 0.3) + (f3_100 * 0.3);
+      }
+      
+      document.getElementById("result").innerHTML = 
+        `🎉 <strong>ผลการคำนวณ</strong> 🎉 <br>
+        👩‍🎓 ชื่อผู้กรอก: <strong>${name}</strong> <br>
+        หลักสูตร: <strong>${program}</strong> <br>
+        รูปแบบ: <strong>${type === "sat" ? "SAT" : "Forward"}</strong> <br>
+        <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+        คะแนนรวม (สเกล 100): <span style="font-size: 28px; color:#2563eb;">${total.toFixed(2)}</span>`;
+    }
+  </script>
+</body>
+</html>
