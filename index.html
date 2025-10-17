@@ -137,7 +137,7 @@
   <div class="container">
     
     <div class="promotion-box">
-        🎓 <strong>คณะพาณิชยศาสตร์และการบัญชี (ACCY) มธ.</strong> 💼<br>
+        🎓 <strong>คณะพาณิชยศาสตร์และการบัญชี มธ (ACCY-IBMP)</strong> 💼<br>
         จากสำเภาไม้… สู่“เรือใบ” ที่ขับเคลื่อนอนาคต<br>
         มาเป็นลูกแม่โดมด้วยกันนะคะ
     </div>
@@ -169,11 +169,11 @@
     <div id="sat-inputs" class="hidden">
       <label for="satMath">Math Section</label>
       <input type="number" id="satMath" placeholder="กรอกคะแนน Math (เต็ม 800)">
-      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 800</span>
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 200 - 800</span>
       
       <label for="satVerbal">Verbal Section</label>
       <input type="number" id="satVerbal" placeholder="กรอกคะแนน Verbal (เต็ม 800)">
-      <span class="input-note">คะแนนต้องอยู่ระหว่าง 0 - 800</span>
+      <span class="input-note">คะแนนต้องอยู่ระหว่าง 200 - 800</span>
     </div>
 
     <div id="forward-inputs" class="hidden">
@@ -235,7 +235,7 @@
         const math = parseFloat(document.getElementById("satMath").value) || 0;
         const verbal = parseFloat(document.getElementById("satVerbal").value) || 0;
         
-        if (math < 0 || math > 800 || verbal < 0 || verbal > 800) {
+        if (math < 200 || math > 800 || verbal < 200 || verbal > 800) {
            document.getElementById("result").innerHTML = "❌ คะแนน SAT ต้องเป็นตัวเลขระหว่าง <strong>0 - 800</strong>";
            return;
         }
@@ -270,4 +270,5 @@
   </script>
 </body>
 </html>
+
 
